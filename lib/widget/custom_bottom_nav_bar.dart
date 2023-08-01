@@ -6,20 +6,20 @@ import '../provider/bottom_nav_bar__index_provider.dart';
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({
     Key? key,
-    required this.selectedIndex,
+    required this.pageController,
   }) : super(key: key);
 
-  final int selectedIndex;
+  final PageController pageController;
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       onTap: (value) {
+        pageController.jumpToPage(value);
         Provider.of<BottomNavBarIndexProvider>(context, listen: false)
             .changeIndex(value);
-        Navigator.pushReplacementNamed(context, value.toString());
       },
-      currentIndex: selectedIndex,
+      currentIndex: Provider.of<BottomNavBarIndexProvider>(context).index,
       selectedItemColor: Colors.white,
       items: [
         _navBarItem("Staggered", Icons.stadium),
